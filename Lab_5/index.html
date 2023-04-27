@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab_5</title>
+  </head>
+  <style>
+    form {
+      border: 3px solid #f1f1f1;
+      width: 50%;
+      margin: auto;
+      padding: 10px;
+      background-color: #f2f2f2;
+      font-family: Arial, sans-serif;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      font-size: 16px;
+      resize: none;
+      font-family: Arial, sans-serif;
+    }
+
+    input[type="submit"] {
+      background-color: #4caf50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      font-family: Arial, sans-serif;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+  <body>
+    <form action="http://localhost:5000/sendmessage" method="POST">
+      <label for="sender">Sender:</label><br />
+      <input type="text" id="sender" name="sender" /><br />
+      <label for="receiver">Receiver:</label><br />
+      <input type="text" id="receiver" name="receiver" /><br />
+      <label for="message">Message:</label><br />
+      <textarea id="message" name="message"></textarea><br /><br />
+      <input type="submit" value="Send" />
+    </form>
+  </body>
+</html>

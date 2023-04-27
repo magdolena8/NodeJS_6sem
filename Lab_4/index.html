@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lab_4</title>
+  </head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <style>
+    .crudContainer {
+      border: 2px solid;
+      padding: 5px;
+      margin-right: 3%;
+    }
+    button {
+      width: 100%;
+      margin-top: 3%;
+    }
+    input {
+      margin: 1%;
+    }
+  </style>
+  <body>
+    <div style="display: flex">
+      <div id="select" class="crudContainer">
+        <button id="btnSelect">SELECT</button>
+        <div id="selectResult">persons</div>
+      </div>
+      <div id="insert" class="crudContainer">
+        <input type="number" id="inpId" />
+        <input type="text" id="inpName" />
+        <input type="date" id="inpDate" /><br />
+        <button id="btnInsert">INSERT</button>
+      </div>
+      <div id="update" class="crudContainer">
+        <input type="number" id="inpId" />
+        <input type="text" id="inpName" />
+        <input type="date" id="inpDate" /><br />
+        <button id="btnUpdate">UPDATE</button>
+      </div>
+      <div id="delete" class="crudContainer">
+        <input type="number" id="inpId" style="width: auto" />
+        <button id="btnDelete">DELETE</button>
+      </div>
+    </div>
+  </body>
+  <script>
+    const date = new Date();
+    window.onload = function () {
+      console.log(`${date.toLocaleTimeString("EU")} -> front script started`);
+    };
+
+    $("#btnSelect").click(function () {
+      fetch("http://localhost:5000/api/db")
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          $("#selectResult").empty().append(JSON.stringify(data));
+          console.log(data);
+        });
+    });
+
+    $("#btnInsert").click(function () {
+      let inputValues = {
+        id: $("#insert > #inpId").val(),
+        name: $("#insert > #inpName").val(),
+        birthday: $("#insert > #inpDate").val(),
+      };
+
+      let response = fetch("http://localhost:5000/api/db", {
+        method: "POST",
+        mode: "cors",
+        body: JSON.stringify(inputValues),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      // response.catch(alert("error"));
+      // response.then((response) => alert(response.statusText));
+    });
+
+    $("#btnUpdate").click(function () {
+      let inputValues = {
+        id: $("#update > #inpId").val(),
+        name: $("#update > #inpName").val(),
+        birthday: $("#update > #inpDate").val(),
+      };
+      let response = fetch("http://localhost:5000/api/db", {
+        method: "PUT",
+        mode: "cors",
+        body: JSON.stringify(inputValues),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      response.then((response) => alert(response.statusText));
+    });
+
+    $("#btnDelete").click(function () {
+      let inputValues = {
+        id: $("#delete > #inpId").val(),
+      };
+      let response = fetch("http://localhost:5000/api/db", {
+        method: "DELETE",
+        mode: "cors",
+        body: JSON.stringify(inputValues),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      response.then((response) => alert(response.statusText));
+    });
+  </script>
+</html>
